@@ -8,6 +8,8 @@ body {
 	font: 3em/1.5em arial, sans-serif;
 	text-align: center;
 	padding: 1em;
+	background: #262626;
+	color: #f2f2f2;
 }
 
 button {
@@ -16,7 +18,7 @@ button {
 	display: inline-block;
 	text-align: center;
 	border: none;
-	padding: 0.5em;
+	padding: 0.75em;
 	margin: 8px;
 	background: gray;
 	box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
@@ -50,25 +52,43 @@ button:focus {
 	font-size: 0.5em;
 	line-height: 2em;
 	padding: 2em 1em;
+	z-index: 100;
 }
 
 #gameover h1 {
 	font-size: 2em;
 	padding: 0;
-	margin: 0;
+	margin: 0 0 1em;
 }
 
 #retry {
-	background: blue;
+	margin-top: 2em;
+	background: #FABE46;
 }
 
 #timer {
-	height: 1em;
-	background: blue;
+	background: black;
+	border-radius: 6px;
+	margin: 8px;
+	font-size: 20px;
+	line-height: 40px;
+	position: relative;
+	color: #262626;
 }
 
-#timer.hidden {
-	background: white;
+#timer .progress {
+	position: absolute;
+	width: 0;
+	background: #FABE46;
+	border-radius: 6px;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+#timer.hidden .progress {
+	display: none;
 }
 
 #problem {
@@ -83,9 +103,22 @@ button:focus {
 }
 
 #correct {
-	background: green;
+	background: #B5C23E;
 }
 
 #wrong {
-	background: red;
+	background: #EC5D5A;
+}
+
+#credits {
+	font-size: 14px;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	left: 0;
+	right: 0;
+}
+
+#credits a {
+	color: #FABE46;
 }

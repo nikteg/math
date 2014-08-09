@@ -13,13 +13,14 @@
 	<div id="gameover">
 		<h1>Game over</h1>
 		<div id="score">Score: <span>0</span></div>
-		<div id="highscore">Highscore: <span>0</span></div>
+		<div id="highscore">High score: <span>0</span></div>
 		<button id="retry">Try again!</button>
 	</div>
-	<div id="timer"></div>
+	<div id="timer">Timer<div class="progress"></div></div>
 	<div id="problem">2+2=5</div>
 	<button id="correct">&#xf00c;</button>
 	<button id="wrong">&#xf00d;</button>
+	<div id="credits">Made with love by <a href="http://niklas.tegnander.nu/">Niklas Tegnander</a></div>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="js/tappy.js"></script>
 	<script src="js/jquery.storageapi.min.js"></script>
@@ -65,7 +66,7 @@
 
 			$('#score span').text(score);
 			$('#highscore span').text(highscore);
-			$('#timer').stop().addClass('hidden');
+			$('#timer').addClass('hidden').find('.progress').stop();
 			$('#gameover').show();
 
 			score = 0;
@@ -82,7 +83,7 @@
 		}
 
 		function startTimer() {
-			$('#timer').removeClass('hidden').css({
+			$('#timer').removeClass('hidden').find('.progress').css({
 				width: '100%'
 			}).stop().animate({
 				width: 0
