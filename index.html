@@ -19,12 +19,13 @@
 	<button id="correct">&#xf00c;</button>
 	<button id="wrong">&#xf00d;</button>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="js/tappy.js"></script>
 	<script>
 		function getRandomInt(min, max) {
 		    return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 
-		var first, second, answer, score = 0, highscore = 0;
+		var first, second, answer, score = 0, highscore = 0, running = false;
 
 		generateProblem();
 
@@ -37,13 +38,40 @@
 			answer = first + second;
 
 			if (getRandomInt(0, 10) < 7) {
-				answer += getRandomInt(-3, 3);
+				answer += Math.max(getRandomInt(-3, 3), 0);
 			}
 
 			$('#problem').text(first + '+' + second + '=' + answer);
 		}
 
 		function start() {
+
+		}
+
+		function gameOver() {
+			if (score > highscore) {
+				highscore = score;
+			}
+
+			$('#score span').text(score);
+			$('#highscore span').text(highscore);
+			$('#timer').stop().addClass('hidden');
+			$('#gameover').show();
+
+			score = 0;
+		}
+
+		function checkAnswer(guess) {
+			if ($('#gameover').is(':visible')) return false;
+
+			if ((guess && first + second == answer) || (!guess && first + second != answer)) {
+				addScore();
+			} else {
+				gameOver();
+			}
+		}
+
+		function nextProblem() {
 			generateProblem();
 
 			$('#timer').removeClass('hidden').css({
@@ -51,47 +79,28 @@
 			}).stop().animate({
 				width: 0
 			}, {
-				duration: 1000,
+				duration: 2000,
 				easing: 'linear',
 				queue: false,
 				complete: gameOver
 			});
 		}
 
-		function gameOver() {
-
-			if (score > highscore) {
-				highscore = score;
-			}
-
-			$('#score span').text(score);
-			$('#highscore span').text(highscore);
-			$('#timer').addClass('hidden');
-			$('#gameover').show();
-		}
-
-		function checkAnswer(correct) {
-			if ((correct && first + second == answer) || (!correct && first + second != answer)) {
-				addScore();
-				start();
-			} else {
-				gameOver();
-			}
-		}
-
 		function addScore() {
 			score += 1;
+
+			nextProblem();
 		}
 
-		$('#correct').on('click', function() {
+		$('#correct').on('tap', function() {
 			checkAnswer(true);
 		});
 
-		$('#wrong').on('click', function() {
+		$('#wrong').on('tap', function() {
 			checkAnswer(false);
 		});
 
-		$('#retry').on('click', function() {
+		$('#retry').on('tap', function() {
 			$('#gameover').hide();
 			start();
 		});

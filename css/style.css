@@ -1,3 +1,9 @@
+/* Windows phone */
+html {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
 body {
 	font: 3em/1.5em arial, sans-serif;
 	text-align: center;
@@ -50,13 +56,9 @@ body {
 
 #correct, #wrong {
 	font: 1em/1em 'FontAwesome', sans-serif;
-	color: white;
-	display: inline-block;
-	width: 64px;
-	text-align: center;
-	border: none;
-	height: 64px;
-	margin: 8px;
+	padding: 0;
+	width: 1.5em;
+	height: 1.5em;
 }
 
 #correct {
@@ -65,4 +67,16 @@ body {
 
 #wrong {
 	background: red;
+}
+
+button {
+	font-size: 1em;
+	color: white;
+	display: inline-block;
+	text-align: center;
+	border: none;
+	padding: 0.5em;
+	margin: 8px;
+	background: gray;
+	box-shadow: 0 0.1em 0 rgba(0, 0, 0, 0.2);
 }
