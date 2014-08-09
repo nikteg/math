@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<title>Math</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
@@ -25,7 +27,11 @@
 		    return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 
-		var first, second, answer, score = 0, highscore = 0, running = false;
+		var first,
+			second,
+			answer,
+			score = 0,
+			highscore = 0;
 
 		generateProblem();
 
@@ -33,12 +39,13 @@
 		$('#gameover').hide();
 
 		function generateProblem() {
-			first = getRandomInt(1, 5);
-			second = getRandomInt(1, 5);
+			first = getRandomInt(2, 9);
+			second = getRandomInt(2, 9);
 			answer = first + second;
 
-			if (getRandomInt(0, 10) < 7) {
-				answer += Math.max(getRandomInt(-3, 3), 0);
+			if (getRandomInt(0, 10) < 5) {
+				answer += getRandomInt(-3, 3);
+				answer = Math.max(0, answer);
 			}
 
 			$('#problem').text(first + '+' + second + '=' + answer);
