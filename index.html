@@ -22,6 +22,7 @@
 	<button id="wrong">&#xf00d;</button>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="js/tappy.js"></script>
+	<script src="js/jquery.storageapi.min.js"></script>
 	<script>
 		function getRandomInt(min, max) {
 		    return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -31,7 +32,7 @@
 			second,
 			answer,
 			score = 0,
-			highscore = 0;
+			highscore = $.localStorage.get('highscore') || 0;
 
 		generateProblem();
 
@@ -58,6 +59,8 @@
 		function gameOver() {
 			if (score > highscore) {
 				highscore = score;
+
+				$.localStorage.set('highscore', highscore);
 			}
 
 			$('#score span').text(score);
@@ -78,15 +81,13 @@
 			}
 		}
 
-		function nextProblem() {
-			generateProblem();
-
+		function startTimer() {
 			$('#timer').removeClass('hidden').css({
 				width: '100%'
 			}).stop().animate({
 				width: 0
 			}, {
-				duration: 2000,
+				duration: 1000 + Math.floor((2500 * (3.5 / score))),
 				easing: 'linear',
 				queue: false,
 				complete: gameOver
@@ -96,7 +97,8 @@
 		function addScore() {
 			score += 1;
 
-			nextProblem();
+			generateProblem();
+			startTimer();
 		}
 
 		$('#correct').on('tap', function() {
