@@ -4,9 +4,97 @@
 	<meta charset="UTF-8">
 	<title>Math</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	
+	<div id="gameover">
+		<h1>Game over</h1>
+		<div id="score">Score: <span>0</span></div>
+		<div id="highscore">Highscore: <span>0</span></div>
+		<button id="retry">Try again!</button>
+	</div>
+	<div id="timer"></div>
+	<div id="problem">2+2=5</div>
+	<button id="correct">&#xf00c;</button>
+	<button id="wrong">&#xf00d;</button>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		function getRandomInt(min, max) {
+		    return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		var first, second, answer, score = 0, highscore = 0;
+
+		generateProblem();
+
+		$('#timer').addClass('hidden');
+		$('#gameover').hide();
+
+		function generateProblem() {
+			first = getRandomInt(1, 5);
+			second = getRandomInt(1, 5);
+			answer = first + second;
+
+			if (getRandomInt(0, 10) < 7) {
+				answer += getRandomInt(-3, 3);
+			}
+
+			$('#problem').text(first + '+' + second + '=' + answer);
+		}
+
+		function start() {
+			generateProblem();
+
+			$('#timer').removeClass('hidden').css({
+				width: '100%'
+			}).stop().animate({
+				width: 0
+			}, {
+				duration: 1000,
+				easing: 'linear',
+				queue: false,
+				complete: gameOver
+			});
+		}
+
+		function gameOver() {
+
+			if (score > highscore) {
+				highscore = score;
+			}
+
+			$('#score span').text(score);
+			$('#highscore span').text(highscore);
+			$('#timer').addClass('hidden');
+			$('#gameover').show();
+		}
+
+		function checkAnswer(correct) {
+			if ((correct && first + second == answer) || (!correct && first + second != answer)) {
+				addScore();
+				start();
+			} else {
+				gameOver();
+			}
+		}
+
+		function addScore() {
+			score += 1;
+		}
+
+		$('#correct').on('click', function() {
+			checkAnswer(true);
+		});
+
+		$('#wrong').on('click', function() {
+			checkAnswer(false);
+		});
+
+		$('#retry').on('click', function() {
+			$('#gameover').hide();
+			start();
+		});
+	</script>
 </body>
 </html>
