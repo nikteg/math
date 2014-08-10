@@ -58,10 +58,6 @@
 			$('#problem').text(first + '+' + second + '=' + answer);
 		}
 
-		function start() {
-
-		}
-
 		function gameOver() {
 			if (score > highscore) {
 				highscore = score;
@@ -118,6 +114,27 @@
 		$('#retry').on('tap', function() {
 			$('#gameover').hide();
 			start();
+		});
+
+		// Keyboard for desktop computers
+		$(document).on('keydown', function(e) {
+
+			// Enter key or space
+			if ($('#gameover').is(':visible') && (e.keyCode == 13 || e.keyCode == 32)) {
+				$('#retry').trigger('tap');
+
+				return;
+			}
+
+			// Left arrow or j
+			if (e.keyCode == 37 || e.keyCode == 74) {
+				$('#correct').trigger('tap');
+			}
+
+			// Right arrow or k
+			if (e.keyCode == 39 || e.keyCode == 75) {
+				$('#wrong').trigger('tap');
+			}
 		});
 	</script>
 	<script>
