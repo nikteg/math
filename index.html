@@ -15,6 +15,7 @@
 	<link rel="icon" sizes="192x192" href="icons/192.png">
 </head>
 <body>
+	<button id="theme">&#xf1b2;</button>
 	<div id="gameover">
 		<h1>Game over</h1>
 		<div id="score">Score: <span>0</span></div>
@@ -39,6 +40,10 @@
 			answer,
 			score = 0,
 			highscore = $.localStorage.get('highscore') || 0;
+
+		if ($.localStorage.get('theme') == 'light') {
+			$('body').addClass('light');
+		}
 
 		generateProblem();
 
@@ -115,6 +120,14 @@
 			$('#gameover').hide();
 			start();
 		});
+
+		$('#theme').on('tap', toggleTheme);
+
+		function toggleTheme() {
+			$('body').toggleClass('light');
+
+			$.localStorage.set('theme', $('body').hasClass('light') ? 'light' : 'dark');
+		}
 
 		// Keyboard for desktop computers
 		$(document).on('keydown', function(e) {
