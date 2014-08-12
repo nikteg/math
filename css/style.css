@@ -21,8 +21,9 @@ button {
 	margin: 8px;
 	color: inherit;
 	background: gray;
-	box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+	border-bottom: 4px solid rgba(0, 0, 0, 0.3);
 	border-radius: 6px;
+	cursor: pointer;
 
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -33,7 +34,7 @@ button {
 }
 
 button:hover {
-	box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2) inset;
+	box-shadow: 0 0 12px rgba(255, 255, 255, 0.7) inset;
 }
 
 button:focus {
@@ -70,11 +71,12 @@ button:focus {
 #timer {
 	background: black;
 	border-radius: 6px;
-	margin: 8px;
+	margin: 8px auto;
 	font-size: 20px;
 	line-height: 40px;
 	position: relative;
 	color: #262626;
+	max-width: 512px;
 }
 
 #timer .progress {
@@ -111,6 +113,7 @@ button:focus {
 	font: 16px/1em 'FontAwesome', sans-serif;
 	background: none;
 	box-shadow: none;
+	border: none;
 }
 
 #correct {
